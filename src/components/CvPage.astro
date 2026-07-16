@@ -1,0 +1,51 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { copy, type Locale } from '../data/site';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = copy[locale];
+---
+
+<BaseLayout locale={locale} title={t.pages.cvTitle} description={t.pages.cvIntro}>
+  <section class="page-hero shell">
+    <p class="eyebrow"><span></span>{t.pages.cvEyebrow}</p>
+    <h1>{t.pages.cvTitle}</h1>
+    <p>{t.pages.cvIntro}</p>
+  </section>
+  <section class="cv-grid shell">
+    <aside class="cv-identity">
+      <div class="identity-mark" aria-hidden="true">XL</div>
+      <p class="cv-name">Xiaoyang Liu<br /><span>劉 笑陽 · Mux</span></p>
+      <p>{t.pages.affiliationValue}</p>
+      <a class="text-link" href="https://github.com/muxmxu">GitHub <span>↗</span></a>
+    </aside>
+    <div class="cv-content">
+      <section>
+        <p class="cv-label">01 · {t.pages.profile}</p>
+        <h2>{t.pages.affiliation}</h2>
+        <p>{t.hero.bio}</p>
+      </section>
+      <section>
+        <p class="cv-label">02 · Focus</p>
+        <h2>{t.pages.interests}</h2>
+        <ul>{t.pages.interestsValue.map((item) => <li>{item}</li>)}</ul>
+      </section>
+      <section>
+        <p class="cv-label">03 · Method</p>
+        <h2>{t.pages.practice}</h2>
+        <p>{t.pages.practiceValue}</p>
+      </section>
+      <section>
+        <p class="cv-label">04 · Stack</p>
+        <h2>{t.pages.capabilities}</h2>
+        <ul>{t.pages.capabilitiesValue.map((item) => <li>{item}</li>)}</ul>
+      </section>
+      <section>
+        <p class="cv-label">05 · Links</p>
+        <h2>{t.pages.contact}</h2>
+        <p>{t.pages.contactValue}</p>
+      </section>
+    </div>
+  </section>
+</BaseLayout>

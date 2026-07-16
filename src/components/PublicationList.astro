@@ -1,0 +1,24 @@
+---
+import { publications as allPublications } from '../data/publications';
+import { copy, type Locale } from '../data/site';
+
+interface Props { locale: Locale; featuredOnly?: boolean; }
+const { locale, featuredOnly = false } = Astro.props;
+const t = copy[locale];
+const publications = featuredOnly ? allPublications.filter((item) => item.featured) : allPublications;
+---
+
+<ol class="publication-list">
+  {publications.map((publication) => (
+    <li class="publication-item">
+      <div class="publication-item__year">{publication.year}</div>
+      <div class="publication-item__content">
+        <div class="publication-item__type">{t.labels[publication.type]}</div>
+        <h3>{publication.title}</h3>
+        <p>{publication.authors.join(', ')}</p>
+        <p class="publication-item__venue">{publication.venue} · {publication.city}</p>
+        {publication.note && <p class="publication-item__note">{publication.note}</p>}
+      </div>
+    </li>
+  ))}
+</ol>

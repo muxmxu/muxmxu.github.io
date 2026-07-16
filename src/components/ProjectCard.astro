@@ -1,0 +1,24 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { copy, localePath, type Locale } from '../data/site';
+
+interface Props { project: CollectionEntry<'projects'>; locale: Locale; index?: number; }
+const { project, locale, index = 0 } = Astro.props;
+const t = copy[locale];
+---
+
+<article class="project-card">
+  <div class="project-card__meta">
+    <span>{String(index + 1).padStart(2, '0')}</span>
+    <span>{project.data.year}</span>
+    <span class="status-dot"><i></i>{t.labels[project.data.status]}</span>
+  </div>
+  <div class="project-card__body">
+    <h3><a href={localePath(locale, `/projects/${project.data.slug}/`)}>{project.data.title}</a></h3>
+    <p>{project.data.excerpt}</p>
+    <ul class="tag-list" aria-label="Topics">
+      {project.data.tags.map((tag) => <li>{tag}</li>)}
+    </ul>
+  </div>
+  <a class="project-card__arrow" href={localePath(locale, `/projects/${project.data.slug}/`)} aria-label={`${t.labels.read}: ${project.data.title}`}>↗</a>
+</article>

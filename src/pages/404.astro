@@ -1,0 +1,11 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout locale="en" title="Signal not found" description="The requested page could not be found." alternateLocales={false} switchPath="/">
+  <section class="not-found shell">
+    <p class="eyebrow"><span></span>Error 404</p>
+    <h1>Signal<br />not found.</h1>
+    <p>The requested frequency is outside this archive.</p>
+    <a class="button button--primary" href="/">Return home <span>→</span></a>
+  </section>
+</BaseLayout>

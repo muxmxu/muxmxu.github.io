@@ -1,0 +1,58 @@
+---
+import Header from '../components/Header.astro';
+import { copy, localePath, siteUrl, type Locale } from '../data/site';
+import '../styles/global.css';
+
+interface Props {
+  locale: Locale;
+  title?: string;
+  description?: string;
+  alternateLocales?: boolean;
+  switchPath?: string;
+}
+
+const { locale, title, description, alternateLocales = true, switchPath } = Astro.props;
+const t = copy[locale];
+const pageTitle = title ? `${title} — Xiaoyang Liu` : 'Xiaoyang Liu — Spatial Voice & Audio Research';
+const pageDescription = description ?? t.hero.bio;
+const barePath = Astro.url.pathname.replace(/^\/(ja|zh)(?=\/|$)/, '') || '/';
+const canonical = new URL(localePath(locale, barePath), siteUrl);
+---
+
+<!doctype html>
+<html lang={locale === 'zh' ? 'zh-CN' : locale}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#0b0c10" />
+    <meta name="description" content={pageDescription} />
+    <link rel="canonical" href={canonical} />
+    {alternateLocales && <link rel="alternate" hreflang="en" href={new URL(localePath('en', barePath), siteUrl)} />}
+    {alternateLocales && <link rel="alternate" hreflang="ja" href={new URL(localePath('ja', barePath), siteUrl)} />}
+    {alternateLocales && <link rel="alternate" hreflang="zh-CN" href={new URL(localePath('zh', barePath), siteUrl)} />}
+    {alternateLocales && <link rel="alternate" hreflang="x-default" href={new URL(localePath('en', barePath), siteUrl)} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Xiaoyang Liu — Research Portfolio" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={pageDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={pageDescription} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{t.skip}</a>
+    <div class="page-noise"></div>
+    <Header locale={locale} switchPath={switchPath} />
+    <main id="main"><slot /></main>
+    <footer class="site-footer shell">
+      <p>{t.footer}</p>
+      <div>
+        <a href="https://github.com/muxmxu" rel="me">GitHub ↗</a>
+        <span>© {new Date().getFullYear()} Xiaoyang Liu</span>
+      </div>
+    </footer>
+  </body>
+</html>

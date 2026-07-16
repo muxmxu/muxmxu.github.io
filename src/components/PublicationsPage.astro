@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PublicationList from './PublicationList.astro';
+import { copy, type Locale } from '../data/site';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+const t = copy[locale];
+---
+
+<BaseLayout locale={locale} title={t.pages.publicationsTitle} description={t.pages.publicationsIntro}>
+  <section class="page-hero shell">
+    <p class="eyebrow"><span></span>{t.pages.publicationsEyebrow}</p>
+    <h1>{t.pages.publicationsTitle}</h1>
+    <p>{t.pages.publicationsIntro}</p>
+  </section>
+  <section class="page-section shell"><PublicationList locale={locale} /></section>
+</BaseLayout>

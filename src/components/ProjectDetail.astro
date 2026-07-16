@@ -1,0 +1,30 @@
+---
+import { render, type CollectionEntry } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { copy, localePath, type Locale } from '../data/site';
+
+interface Props { locale: Locale; project: CollectionEntry<'projects'>; }
+const { locale, project } = Astro.props;
+const t = copy[locale];
+const { Content } = await render(project);
+---
+
+<BaseLayout locale={locale} title={project.data.title} description={project.data.excerpt}>
+  <article class="project-detail shell">
+    <a class="back-link" href={localePath(locale, '/projects/')}>← {t.labels.back}</a>
+    <header class="project-detail__header">
+      <div class="project-detail__meta">
+        <span>{project.data.year}</span><span>{t.labels[project.data.status]}</span>
+      </div>
+      <h1>{project.data.title}</h1>
+      <p>{project.data.excerpt}</p>
+      <ul class="tag-list">{project.data.tags.map((tag) => <li>{tag}</li>)}</ul>
+      <div class="project-links">
+        {project.data.code && <a class="button button--primary" href={project.data.code}>{t.labels.code}<span>↗</span></a>}
+        {project.data.paper && <a class="button" href={project.data.paper}>{t.labels.paper}<span>↗</span></a>}
+        {project.data.demo && <a class="button" href={project.data.demo}>{t.labels.demo}<span>↗</span></a>}
+      </div>
+    </header>
+    <div class="project-detail__body prose"><Content /></div>
+  </article>
+</BaseLayout>

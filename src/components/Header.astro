@@ -1,0 +1,31 @@
+---
+import { copy, localeNames, localePath, locales, type Locale } from '../data/site';
+
+interface Props { locale: Locale; switchPath?: string; }
+const { locale, switchPath } = Astro.props;
+const currentPath = switchPath ?? (Astro.url.pathname.replace(/^\/(ja|zh)(?=\/|$)/, '') || '/');
+const t = copy[locale];
+const links = [
+  { label: t.nav.home, href: localePath(locale, '/') },
+  { label: t.nav.research, href: localePath(locale, '/projects/') },
+  { label: t.nav.publications, href: localePath(locale, '/publications/') },
+  { label: t.nav.cv, href: localePath(locale, '/cv/') },
+];
+---
+
+<header class="site-header">
+  <a class="wordmark" href={localePath(locale, '/')} aria-label="Xiaoyang Liu — home">
+    <span class="wordmark__signal"></span>
+    <span>XIAOYANG LIU</span>
+  </a>
+  <nav class="primary-nav" aria-label="Primary navigation">
+    {links.map((link) => <a href={link.href}>{link.label}</a>)}
+  </nav>
+  <div class="language-switcher" aria-label="Language selector">
+    {locales.map((item) => (
+      <a class:list={{ active: item === locale }} href={localePath(item, currentPath)} lang={item} aria-current={item === locale ? 'page' : undefined}>
+        {localeNames[item]}
+      </a>
+    ))}
+  </div>
+</header>
