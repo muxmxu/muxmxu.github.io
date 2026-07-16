@@ -8,6 +8,7 @@ interface Props { locale: Locale; project: CollectionEntry<'projects'>; }
 const { locale, project } = Astro.props;
 const t = copy[locale];
 const { Content } = await render(project);
+const spatialVoiceConversionDemoEnabled = import.meta.env.SVC_DEMO_ENABLED !== 'false';
 ---
 
 <BaseLayout locale={locale} title={project.data.title} description={project.data.excerpt}>
@@ -27,6 +28,6 @@ const { Content } = await render(project);
       </div>
     </header>
     <div class="project-detail__body prose"><Content /></div>
-    {project.data.slug === 'spatial-voice-conversion' && <SpatialVoiceConversionDemo locale={locale} />}
+    {spatialVoiceConversionDemoEnabled && project.data.slug === 'spatial-voice-conversion' && <SpatialVoiceConversionDemo locale={locale} />}
   </article>
 </BaseLayout>

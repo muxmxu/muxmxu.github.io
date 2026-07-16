@@ -17,9 +17,14 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      SVC_DEMO_ENABLED: ${{ vars.SVC_DEMO_ENABLED }}
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+      - name: Exclude disabled demo audio
+        if: env.SVC_DEMO_ENABLED == 'false'
+        run: mv public/demos/spatial-voice-conversion "$RUNNER_TEMP/"
       - name: Build Astro site
         uses: withastro/action@v6
 
