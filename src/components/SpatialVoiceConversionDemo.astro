@@ -1,0 +1,426 @@
+---
+import type { Locale } from '../data/site';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+
+const copy = {
+  en: {
+    eyebrow: 'Listening demo',
+    title: 'Hear two spatial comparisons.',
+    introduction: 'Each scene compares the original mixture with two Spatial Voice Conversion results. Listen in order to hear how the selected voice changes while the spatial arrangement is retained.',
+    targetTitle: 'Target-voice reference',
+    targetDescription: 'This shared reference defines the target voice used in both scenes.',
+    headphonesTitle: 'Headphones recommended',
+    headphonesText: 'Use headphones in a quiet setting for the clearest spatial comparison.',
+    warningTitle: 'Spatial listening note',
+    warningText: 'No head-related transfer function (HRTF) was used, so front–back confusion may occur.',
+    sceneLabel: 'Scene',
+    directions: [
+      'The far-left speaker at −83.33° is converted to the target voice; the other speaker is at +13.495°.',
+      'The slightly-left speaker at −16.0665° is converted to the target voice; the other speaker is at +61.3849°.',
+    ],
+    diagramDescriptions: [
+      'Top-down speaker layout. The converted speaker is at minus 83.33 degrees, the other speaker is at plus 13.495 degrees, and zero degrees is directly in front of the listener.',
+      'Top-down speaker layout. The converted speaker is at minus 16.0665 degrees, the other speaker is at plus 61.3849 degrees, and zero degrees is directly in front of the listener.',
+    ],
+    front: 'Front · 0°',
+    listener: 'Listener',
+    convertedSpeaker: 'Converted speaker',
+    otherSpeaker: 'Other speaker',
+    original: 'Original Scene',
+    gtResult: 'Spatial Voice Conversion Result — GT Phase',
+    vocoderResult: 'Spatial Voice Conversion Result — Vocoder Reconstruction',
+    vocoder: 'Vocoder: HiFi-GAN UNIVERSAL_V1',
+    technicalSummary: 'Technical listening samples',
+    technicalDescription: 'Separated-speaker reconstructions for closer comparison.',
+    convertedGt: 'Converted Speaker — GT Reconstruction',
+    convertedVocoder: 'Converted Speaker — Vocoder Reconstruction',
+    otherGt: 'Other Speaker — GT Reconstruction',
+    otherVocoder: 'Other Speaker — Vocoder Reconstruction',
+    creditsTitle: 'Credits',
+    targetCredit: 'The target-voice reference is from the JVS corpus.',
+    conversionCredit: 'Voice conversion uses Seed-VC V1.',
+  },
+  ja: {
+    eyebrow: '試聴デモ',
+    title: '2つの空間比較を試聴できます。',
+    introduction: '各シーンでは、元のミックスと2種類のSpatial Voice Conversion結果を順に比較できます。選択された声の変化と空間配置の保たれ方をお聴きください。',
+    targetTitle: 'ターゲット音声リファレンス',
+    targetDescription: '両方のシーンで使用するターゲット音声を示す共通リファレンスです。',
+    headphonesTitle: 'ヘッドホン推奨',
+    headphonesText: '空間的な違いを明瞭に比較するため、静かな環境でヘッドホンをご使用ください。',
+    warningTitle: '空間試聴について',
+    warningText: '頭部伝達関数（HRTF）は使用していないため、前後誤判定が生じる場合があります。',
+    sceneLabel: 'シーン',
+    directions: [
+      '左端の−83.33°の話者をターゲット音声に変換しています。もう一方の話者は+13.495°に位置します。',
+      'やや左の−16.0665°の話者をターゲット音声に変換しています。もう一方の話者は+61.3849°に位置します。',
+    ],
+    diagramDescriptions: [
+      '上から見た話者配置。変換対象話者は−83.33°、もう一方の話者は+13.495°、聴取者の正面は0°です。',
+      '上から見た話者配置。変換対象話者は−16.0665°、もう一方の話者は+61.3849°、聴取者の正面は0°です。',
+    ],
+    front: '正面 · 0°',
+    listener: '聴取者',
+    convertedSpeaker: '変換対象話者',
+    otherSpeaker: 'もう一方の話者',
+    original: '元のシーン',
+    gtResult: 'Spatial Voice Conversion 結果 — GT Phase',
+    vocoderResult: 'Spatial Voice Conversion 結果 — Vocoder Reconstruction',
+    vocoder: 'ボコーダー: HiFi-GAN UNIVERSAL_V1',
+    technicalSummary: '技術試聴サンプル',
+    technicalDescription: '話者ごとに分離した再構成音を詳しく比較できます。',
+    convertedGt: '変換対象話者 — GT Reconstruction',
+    convertedVocoder: '変換対象話者 — Vocoder Reconstruction',
+    otherGt: 'もう一方の話者 — GT Reconstruction',
+    otherVocoder: 'もう一方の話者 — Vocoder Reconstruction',
+    creditsTitle: 'クレジット',
+    targetCredit: 'ターゲット音声リファレンスはJVS corpusから提供されています。',
+    conversionCredit: 'Voice conversionにはSeed-VC V1を使用しています。',
+  },
+  zh: {
+    eyebrow: '试听演示',
+    title: '试听两个空间场景的对比。',
+    introduction: '每个场景依次对比原始混音与两种Spatial Voice Conversion结果，以便聆听所选声音的变化以及空间布局的保留情况。',
+    targetTitle: '目标音色参考',
+    targetDescription: '两个场景共用这段参考音频来定义目标音色。',
+    headphonesTitle: '建议佩戴耳机',
+    headphonesText: '请在安静环境中佩戴耳机，以更清晰地比较空间效果。',
+    warningTitle: '空间试听提示',
+    warningText: '未使用头相关传递函数（HRTF），因此可能出现前后方位混淆。',
+    sceneLabel: '场景',
+    directions: [
+      '位于最左侧−83.33°的说话人被转换为目标音色；另一位说话人位于+13.495°。',
+      '位于略偏左−16.0665°的说话人被转换为目标音色；另一位说话人位于+61.3849°。',
+    ],
+    diagramDescriptions: [
+      '俯视说话人布局。转换目标说话人位于−83.33°，另一位说话人位于+13.495°，听者正前方为0°。',
+      '俯视说话人布局。转换目标说话人位于−16.0665°，另一位说话人位于+61.3849°，听者正前方为0°。',
+    ],
+    front: '正前方 · 0°',
+    listener: '听者',
+    convertedSpeaker: '转换目标说话人',
+    otherSpeaker: '另一位说话人',
+    original: '原始场景',
+    gtResult: 'Spatial Voice Conversion 结果 — GT Phase',
+    vocoderResult: 'Spatial Voice Conversion 结果 — Vocoder Reconstruction',
+    vocoder: '声码器: HiFi-GAN UNIVERSAL_V1',
+    technicalSummary: '技术试听样例',
+    technicalDescription: '可进一步比较按说话人分离的重建音频。',
+    convertedGt: '转换目标说话人 — GT Reconstruction',
+    convertedVocoder: '转换目标说话人 — Vocoder Reconstruction',
+    otherGt: '另一位说话人 — GT Reconstruction',
+    otherVocoder: '另一位说话人 — Vocoder Reconstruction',
+    creditsTitle: '鸣谢',
+    targetCredit: '目标音色参考来自JVS corpus。',
+    conversionCredit: 'Voice conversion使用Seed-VC V1。',
+  },
+} as const;
+
+const t = copy[locale];
+const audioRoot = '/demos/spatial-voice-conversion';
+const scenes = [
+  {
+    number: 1,
+    converted: { angle: '−83.33°', cssAngle: '-83.33deg', counterAngle: '83.33deg', edge: true },
+    other: { angle: '+13.495°', cssAngle: '13.495deg', counterAngle: '-13.495deg', edge: false },
+  },
+  {
+    number: 2,
+    converted: { angle: '−16.0665°', cssAngle: '-16.0665deg', counterAngle: '16.0665deg', edge: false },
+    other: { angle: '+61.3849°', cssAngle: '61.3849deg', counterAngle: '-61.3849deg', edge: false },
+  },
+];
+
+const mainSamples = [
+  { suffix: 'original', label: t.original },
+  { suffix: 'result-gt-phase', label: t.gtResult },
+  { suffix: 'result-vocoder', label: t.vocoderResult },
+];
+
+const technicalSamples = [
+  { suffix: 'converted-gt-reconstruction', label: t.convertedGt },
+  { suffix: 'converted-vocoder-reconstruction', label: t.convertedVocoder },
+  { suffix: 'other-gt-reconstruction', label: t.otherGt },
+  { suffix: 'other-vocoder-reconstruction', label: t.otherVocoder },
+];
+---
+
+<section class="svc-demo" aria-label="Spatial Voice Conversion">
+  <header class="demo-heading">
+    <p class="demo-eyebrow"><span></span>{t.eyebrow}</p>
+    <h2>{t.title}</h2>
+    <p>{t.introduction}</p>
+  </header>
+
+  <div class="listening-notes">
+    <aside>
+      <strong>{t.headphonesTitle}</strong>
+      <p>{t.headphonesText}</p>
+    </aside>
+    <aside>
+      <strong>{t.warningTitle}</strong>
+      <p>{t.warningText}</p>
+    </aside>
+  </div>
+
+  <section class="reference-card">
+    <div>
+      <h3>{t.targetTitle}</h3>
+      <p>{t.targetDescription}</p>
+    </div>
+    <audio controls preload="metadata" data-exclusive-playback aria-label={t.targetTitle}>
+      <source src={`${audioRoot}/target-reference.wav`} type="audio/wav" />
+    </audio>
+  </section>
+
+  <div class="scene-list">
+    {scenes.map((scene, index) => (
+      <article class="scene-card">
+        <header class="scene-heading">
+          <div>
+            <h3>{t.sceneLabel} {scene.number}</h3>
+          </div>
+          <p>{t.directions[index]}</p>
+        </header>
+
+        <div class="position-diagram" role="img" aria-label={t.diagramDescriptions[index]}>
+          <div class="diagram-orbit"></div>
+          <div class="front-axis"><span>{t.front}</span></div>
+          {[{ ...scene.converted, converted: true }, { ...scene.other, converted: false }].map((speaker) => (
+            <div
+              class:list={['speaker-ray', { 'speaker-ray--converted': speaker.converted, 'speaker-ray--edge': speaker.edge }]}
+              style={`--angle: ${speaker.cssAngle}; --counter-angle: ${speaker.counterAngle};`}
+            >
+              <div class="speaker-orientation">
+                <div class="speaker-point">
+                  <span class="speaker-dot"></span>
+                  <span>{speaker.angle}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+          <div class="listener-mark"><span></span><strong>{t.listener}</strong></div>
+        </div>
+
+        <ul class="diagram-legend">
+          <li class="diagram-legend__converted"><span></span><strong>{t.convertedSpeaker}</strong><em>{scene.converted.angle}</em></li>
+          <li><span></span><strong>{t.otherSpeaker}</strong><em>{scene.other.angle}</em></li>
+        </ul>
+
+        <div class="comparison-grid">
+          {mainSamples.map((sample) => (
+            <section class="audio-card">
+              <h4>{sample.label}</h4>
+              {sample.suffix === 'result-vocoder' && <p class="vocoder-label">{t.vocoder}</p>}
+              <audio controls preload="metadata" data-exclusive-playback aria-label={`${t.sceneLabel} ${scene.number}: ${sample.label}`}>
+                <source src={`${audioRoot}/scene-${scene.number}-${sample.suffix}.wav`} type="audio/wav" />
+              </audio>
+            </section>
+          ))}
+        </div>
+
+        <details class="technical-listening">
+          <summary>{t.technicalSummary}<span aria-hidden="true">+</span></summary>
+          <div class="technical-content">
+            <p>{t.technicalDescription}</p>
+            <div class="technical-grid">
+              {technicalSamples.map((sample) => (
+                <section class="technical-sample">
+                  <h4>{sample.label}</h4>
+                  {sample.suffix.includes('vocoder') && <p class="vocoder-label">{t.vocoder}</p>}
+                  <audio controls preload="metadata" data-exclusive-playback aria-label={`${t.sceneLabel} ${scene.number}: ${sample.label}`}>
+                    <source src={`${audioRoot}/scene-${scene.number}-${sample.suffix}.wav`} type="audio/wav" />
+                  </audio>
+                </section>
+              ))}
+            </div>
+          </div>
+        </details>
+      </article>
+    ))}
+  </div>
+
+  <footer class="demo-credits">
+    <h3>{t.creditsTitle}</h3>
+    <p>{t.targetCredit}</p>
+    <p>{t.conversionCredit}</p>
+  </footer>
+</section>
+
+<script>
+  const audioPlayers = document.querySelectorAll<HTMLAudioElement>('audio[data-exclusive-playback]');
+  audioPlayers.forEach((player) => {
+    player.addEventListener('play', () => {
+      audioPlayers.forEach((otherPlayer) => {
+        if (otherPlayer !== player) otherPlayer.pause();
+      });
+    });
+  });
+</script>
+
+<style>
+  .svc-demo {
+    max-width: 1000px;
+    margin: 110px 0 0 auto;
+    padding-top: 100px;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .demo-heading { max-width: 760px; margin-bottom: 54px; }
+  .demo-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 0 0 18px;
+    color: var(--muted);
+    font-size: .68rem;
+    font-weight: 650;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+  .demo-eyebrow span { width: 26px; height: 1px; background: var(--acid); }
+  .demo-heading h2 {
+    margin: 0;
+    font-family: var(--serif);
+    font-size: clamp(2.8rem, 5vw, 5.2rem);
+    font-weight: 400;
+    line-height: 1.03;
+    letter-spacing: -.04em;
+  }
+  .demo-heading > p:last-child { max-width: 720px; margin: 26px 0 0; color: #bbb9b1; font-size: 1.05rem; line-height: 1.8; }
+
+  .listening-notes { display: grid; grid-template-columns: 1fr 1fr; margin-bottom: 24px; border: 1px solid var(--line); }
+  .listening-notes aside { padding: 24px 26px; }
+  .listening-notes aside + aside { border-left: 1px solid var(--line); }
+  .listening-notes strong { color: var(--acid); font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; }
+  .listening-notes p { margin: 8px 0 0; color: var(--muted); font-size: .88rem; line-height: 1.65; }
+
+  .reference-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(280px, 42%);
+    gap: 40px;
+    align-items: end;
+    padding: 32px;
+    border: 1px solid var(--line-strong);
+    background: linear-gradient(135deg, rgba(198,255,115,.045), rgba(255,255,255,.012));
+  }
+  .reference-card h3, .scene-heading h3, .demo-credits h3 { margin: 0; font-family: var(--serif); font-size: clamp(2rem, 3vw, 3.2rem); font-weight: 400; line-height: 1.1; }
+  .reference-card p:last-child { margin: 14px 0 0; color: var(--muted); }
+
+  audio { display: block; width: 100%; min-width: 0; color-scheme: dark; }
+  .scene-list { display: grid; gap: 48px; margin-top: 48px; }
+  .scene-card { padding: clamp(28px, 4vw, 46px); border: 1px solid var(--line-strong); background: rgba(255,255,255,.012); }
+  .scene-heading { display: grid; grid-template-columns: minmax(180px, .65fr) minmax(0, 1.35fr); gap: 42px; align-items: end; }
+  .scene-heading > p { margin: 0; color: #c7c5be; font-size: 1rem; line-height: 1.7; }
+
+  .position-diagram {
+    position: relative;
+    min-height: 370px;
+    margin-top: 34px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background:
+      linear-gradient(rgba(255,255,255,.022) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.022) 1px, transparent 1px),
+      rgba(5,6,9,.35);
+    background-size: 42px 42px;
+  }
+  .diagram-orbit {
+    position: absolute;
+    left: 50%;
+    bottom: 15%;
+    width: min(84vw, 420px);
+    max-width: 84%;
+    aspect-ratio: 1;
+    border: 1px solid var(--line);
+    border-radius: 50%;
+    transform: translate(-50%, 50%);
+  }
+  .front-axis {
+    position: absolute;
+    left: 50%;
+    bottom: 15%;
+    height: min(48vw, 235px);
+    border-left: 1px dashed rgba(198,255,115,.45);
+  }
+  .front-axis::before { content: ''; position: absolute; top: -5px; left: -4px; width: 7px; height: 7px; border-top: 1px solid var(--acid); border-right: 1px solid var(--acid); transform: rotate(-45deg); }
+  .front-axis span { position: absolute; top: -13px; left: 12px; color: var(--muted); font-size: .68rem; letter-spacing: .07em; white-space: nowrap; }
+  .speaker-ray {
+    --angle: 0deg;
+    --counter-angle: 0deg;
+    position: absolute;
+    left: 50%;
+    bottom: 15%;
+    height: min(42vw, 210px);
+    border-left: 1px solid rgba(165,140,255,.55);
+    transform: rotate(var(--angle));
+    transform-origin: 0 100%;
+  }
+  .speaker-ray--converted { border-color: rgba(198,255,115,.7); border-left-width: 2px; }
+  .speaker-orientation { position: absolute; top: 0; left: 0; transform: rotate(var(--counter-angle)); }
+  .speaker-point { display: flex; align-items: center; gap: 9px; transform: translate(-50%, -50%); color: var(--muted); font-family: ui-monospace, monospace; font-size: .7rem; white-space: nowrap; }
+  .speaker-ray--edge .speaker-point { transform: translate(0, -50%); }
+  .speaker-dot { width: 14px; height: 14px; flex: 0 0 auto; border: 2px solid var(--violet); border-radius: 50%; background: var(--ground); box-shadow: 0 0 18px rgba(165,140,255,.35); }
+  .speaker-ray--converted .speaker-dot { width: 18px; height: 18px; border-color: var(--acid); background: var(--acid); box-shadow: 0 0 22px rgba(198,255,115,.42); }
+  .speaker-ray--converted .speaker-point { color: var(--acid); }
+  .listener-mark { position: absolute; left: 50%; bottom: 15%; display: flex; flex-direction: column; align-items: center; gap: 9px; color: var(--ink); font-size: .68rem; letter-spacing: .08em; text-transform: uppercase; transform: translate(-50%, 50%); }
+  .listener-mark span { width: 35px; height: 35px; border: 1px solid var(--line-strong); border-radius: 50%; background: var(--ground); box-shadow: inset 0 0 0 8px rgba(105,231,231,.08), 0 0 24px rgba(105,231,231,.12); }
+
+  .diagram-legend { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 30px; margin: 18px 0 0; padding: 0; list-style: none; }
+  .diagram-legend li { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; color: var(--muted); font-size: .78rem; }
+  .diagram-legend li > span { width: 8px; height: 8px; border-radius: 50%; background: var(--violet); }
+  .diagram-legend strong { color: var(--ink); font-weight: 600; }
+  .diagram-legend em { color: var(--muted); font-family: ui-monospace, monospace; font-style: normal; }
+  .diagram-legend__converted > span { background: var(--acid) !important; box-shadow: 0 0 10px rgba(198,255,115,.4); }
+  .diagram-legend__converted strong, .diagram-legend__converted em { color: var(--acid); }
+
+  .comparison-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 38px; border: 1px solid var(--line); }
+  .audio-card { display: flex; min-width: 0; min-height: 230px; padding: 22px; flex-direction: column; border-right: 1px solid var(--line); }
+  .audio-card:last-child { border-right: 0; }
+  .audio-card h4, .technical-sample h4 { margin: 0; color: var(--ink); font-size: .92rem; font-weight: 600; line-height: 1.45; }
+  .audio-card audio { margin-top: auto; }
+  .vocoder-label { margin: 10px 0 18px; color: var(--cyan); font-family: ui-monospace, monospace; font-size: .62rem; line-height: 1.45; }
+
+  .technical-listening { margin-top: 22px; border: 1px solid var(--line); }
+  .technical-listening summary { display: flex; min-height: 56px; padding: 15px 18px; align-items: center; justify-content: space-between; gap: 20px; color: var(--ink); font-size: .78rem; font-weight: 650; letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+  .technical-listening summary::-webkit-details-marker { display: none; }
+  .technical-listening summary::marker { content: ''; }
+  .technical-listening summary span { color: var(--acid); font-size: 1.25rem; font-weight: 400; transition: transform .2s ease; }
+  .technical-listening[open] summary { border-bottom: 1px solid var(--line); }
+  .technical-listening[open] summary span { transform: rotate(45deg); }
+  .technical-content { padding: 24px; }
+  .technical-content > p { margin: 0 0 20px; color: var(--muted); font-size: .88rem; }
+  .technical-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .technical-sample { min-width: 0; padding: 20px; border: 1px solid var(--line); }
+  .technical-sample audio { margin-top: 20px; }
+
+  .demo-credits { margin-top: 48px; padding: 34px 0 0; border-top: 1px solid var(--line-strong); }
+  .demo-credits h3 { margin-bottom: 18px; font-size: 2rem; }
+  .demo-credits p { margin: 5px 0; color: var(--muted); }
+
+  @media (max-width: 820px) {
+    .reference-card { grid-template-columns: 1fr; gap: 26px; }
+    .scene-heading { grid-template-columns: 1fr; gap: 18px; }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .audio-card { min-height: 175px; border-right: 0; border-bottom: 1px solid var(--line); }
+    .audio-card:last-child { border-bottom: 0; }
+  }
+
+  @media (max-width: 620px) {
+    .svc-demo { margin-top: 80px; padding-top: 76px; }
+    .listening-notes { grid-template-columns: 1fr; }
+    .listening-notes aside + aside { border-top: 1px solid var(--line); border-left: 0; }
+    .reference-card, .scene-card { padding: 24px 18px; }
+    .position-diagram { min-height: 310px; margin-inline: -1px; }
+    .front-axis { height: min(57vw, 205px); }
+    .speaker-ray { height: min(42vw, 165px); }
+    .speaker-point { gap: 6px; font-size: .62rem; }
+    .speaker-dot { width: 11px; height: 11px; }
+    .speaker-ray--converted .speaker-dot { width: 15px; height: 15px; }
+    .diagram-legend { grid-template-columns: 1fr; }
+    .technical-content { padding: 18px; }
+    .technical-grid { grid-template-columns: 1fr; }
+  }
+</style>

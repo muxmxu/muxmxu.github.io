@@ -18,8 +18,8 @@ My doctoral research explores representations and learning methods for spatial v
 
 ## Current direction
 
-The work is currently in progress. This page will become the public home for listening examples, spatial comparisons, method diagrams, and reproducible evaluation notes as results are ready to share.
+The work is currently in progress. The listening material on this page presents an initial public comparison of converted speech in two spatial arrangements.
 
-## Demo format
+## Listening demo
 
-Future demonstrations will place matched audio samples and spatial controls beside the research explanation, so visitors can examine the behavior rather than only read a summary.
+The demo below pairs matched audio samples with speaker-position diagrams. Compare each original scene with both reconstruction paths, then open the technical samples for separated-speaker listening.
