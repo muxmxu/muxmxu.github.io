@@ -78,4 +78,17 @@ const profileLinks = [
       ))}
     </ol>
   </section>
+
+  <section class="personal-section shell" aria-labelledby="outside-the-lab">
+    <div class="personal-section__copy">
+      <p>{t.personal.kicker}</p>
+      <h2 id="outside-the-lab">{t.personal.title}</h2>
+      <p>{t.personal.text}</p>
+    </div>
+    <dl class="strength-stats" aria-label={t.personal.statsLabel}>
+      {t.personal.lifts.map((lift) => (
+        <div><dt>{lift.label}</dt><dd>{lift.value}</dd></div>
+      ))}
+    </dl>
+  </section>
 </BaseLayout>
