@@ -9,6 +9,8 @@ export const localeNames: Record<Locale, string> = {
 
 export const siteUrl = 'https://muxmxu.github.io';
 
+export const educationLabUrl = 'https://sites.google.com/view/kinoshita-yuma/%E7%A0%94%E7%A9%B6%E5%AE%A4';
+
 export const socialProfiles = [
   { label: 'GitHub', href: 'https://github.com/muxmxu' },
   { label: 'X', handle: '@_muxxum', href: 'https://x.com/_muxxum' },
@@ -36,6 +38,7 @@ export const copy = {
         { label: 'In Japan', value: 'Since 2018' },
       ],
       linksLabel: 'Profiles & links',
+      educationLab: 'Kinoshita Lab · B.Eng.–M.Eng.',
       emailReveal: 'Reveal email',
       projects: 'Research',
       publications: 'Publications',
@@ -112,6 +115,7 @@ export const copy = {
         { label: '来日', value: '2018年' },
       ],
       linksLabel: 'プロフィールとリンク',
+      educationLab: '木下研究室 · 学士・修士',
       emailReveal: 'メールアドレスを表示',
       projects: '研究',
       publications: '発表一覧',
@@ -176,6 +180,7 @@ export const copy = {
         { label: '赴日', value: '2018 年' },
       ],
       linksLabel: '主页与链接',
+      educationLab: '木下研究室 · 本科—硕士',
       emailReveal: '显示邮箱',
       projects: '研究',
       publications: '发表列表',

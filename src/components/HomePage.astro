@@ -1,19 +1,21 @@
 ---
 import PublicationList from './PublicationList.astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { copy, localePath, socialProfiles, type Locale } from '../data/site';
+import { copy, educationLabUrl, localePath, socialProfiles, type Locale } from '../data/site';
 
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
 const t = copy[locale];
 const profileLinks = [
-  { label: t.hero.publications, href: localePath(locale, '/publications/'), external: false },
-  { label: t.hero.projects, href: localePath(locale, '/projects/'), external: false },
-  { label: t.nav.cv, href: localePath(locale, '/cv/'), external: false },
+  { label: t.hero.publications, href: localePath(locale, '/publications/'), external: false, rel: undefined },
+  { label: t.hero.projects, href: localePath(locale, '/projects/'), external: false, rel: undefined },
+  { label: t.nav.cv, href: localePath(locale, '/cv/'), external: false, rel: undefined },
+  { label: t.hero.educationLab, href: educationLabUrl, external: true, rel: 'external' },
   ...socialProfiles.map((profile) => ({
     label: 'handle' in profile ? `${profile.label} ${profile.handle}` : profile.label,
     href: profile.href,
     external: true,
+    rel: 'me',
   })),
 ];
 ---
@@ -41,7 +43,7 @@ const profileLinks = [
         <p>{t.hero.linksLabel}</p>
         <div>
           {profileLinks.map((link) => (
-            <a href={link.href} rel={link.external ? 'me' : undefined}>
+            <a href={link.href} rel={link.rel}>
               {link.label}<span aria-hidden="true">{link.external ? '↗' : '→'}</span>
             </a>
           ))}
