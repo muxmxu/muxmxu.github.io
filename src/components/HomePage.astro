@@ -45,6 +45,7 @@ const profileLinks = [
               {link.label}<span aria-hidden="true">{link.external ? '↗' : '→'}</span>
             </a>
           ))}
+          <button type="button" data-email-reveal>{t.hero.emailReveal}<span aria-hidden="true">+</span></button>
         </div>
       </nav>
     </aside>
@@ -92,3 +93,20 @@ const profileLinks = [
     </dl>
   </section>
 </BaseLayout>
+
+<script>
+  const emailKey = 73;
+  const encodedEmail = [36, 60, 49, 103, 49, 37, 32, 60, 9, 34, 44, 32, 38, 103, 35, 57];
+
+  document.querySelectorAll<HTMLButtonElement>('[data-email-reveal]').forEach((button) => {
+    button.addEventListener('click', () => {
+      const address = String.fromCharCode(...encodedEmail.map((code) => code ^ emailKey));
+      const link = document.createElement('a');
+      link.href = `mailto:${address}`;
+      link.textContent = address;
+      link.rel = 'nofollow';
+      button.replaceWith(link);
+      link.focus();
+    }, { once: true });
+  });
+</script>
