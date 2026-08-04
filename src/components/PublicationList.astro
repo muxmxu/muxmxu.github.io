@@ -11,10 +11,17 @@ const publications = featuredOnly ? allPublications.filter((item) => item.featur
 <ol class="publication-list">
   {publications.map((publication) => (
     <li class="publication-item">
-      <div class="publication-item__year">{publication.year}</div>
+      <div class="publication-item__year"><time datetime={String(publication.year)}>{publication.year}</time></div>
       <div class="publication-item__content">
         <div class="publication-item__type">{t.labels[publication.type]}</div>
-        <h3>{publication.title}</h3>
+        <h3>
+          {publication.url ? (
+            <a href={publication.url}>
+              {publication.title}
+              <span class="publication-item__link" aria-hidden="true">{t.labels.paper} ↗</span>
+            </a>
+          ) : publication.title}
+        </h3>
         <p>{publication.authors.join(', ')}</p>
         <p class="publication-item__venue">{publication.venue} · {publication.city}</p>
         {publication.note && <p class="publication-item__note">{publication.note}</p>}

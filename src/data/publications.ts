@@ -20,6 +20,7 @@ export const publications: Publication[] = [
     type: 'oral',
     featured: true,
     note: 'Special Session: Advanced Topics in Audio Understanding of Sound Events, Scenes, and Beyond',
+    url: 'https://www.apsipa.org/proceedings/2025/papers/APSIPA2025_P258.pdf',
   },
   {
     year: 2025,

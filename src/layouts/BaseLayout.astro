@@ -1,6 +1,6 @@
 ---
 import Header from '../components/Header.astro';
-import { copy, localePath, siteUrl, type Locale } from '../data/site';
+import { copy, localePath, siteUrl, socialProfiles, type Locale } from '../data/site';
 import '../styles/global.css';
 
 interface Props {
@@ -13,7 +13,7 @@ interface Props {
 
 const { locale, title, description, alternateLocales = true, switchPath } = Astro.props;
 const t = copy[locale];
-const pageTitle = title ? `${title} — Xiaoyang Liu` : 'Xiaoyang Liu — Spatial Voice & Audio Research';
+const pageTitle = title ? `${title} — Xiaoyang Liu` : 'Xiaoyang Liu — Doctoral Researcher in Speech & Spatial Audio';
 const pageDescription = description ?? t.hero.bio;
 const barePath = Astro.url.pathname.replace(/^\/(ja|zh)(?=\/|$)/, '') || '/';
 const canonical = new URL(localePath(locale, barePath), siteUrl);
@@ -25,7 +25,7 @@ const canonical = new URL(localePath(locale, barePath), siteUrl);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <meta name="theme-color" content="#0b0c10" />
+    <meta name="theme-color" content="#f7f5ef" />
     <meta name="description" content={pageDescription} />
     <link rel="canonical" href={canonical} />
     {alternateLocales && <link rel="alternate" hreflang="en" href={new URL(localePath('en', barePath), siteUrl)} />}
@@ -48,10 +48,11 @@ const canonical = new URL(localePath(locale, barePath), siteUrl);
     <Header locale={locale} switchPath={switchPath} />
     <main id="main"><slot /></main>
     <footer class="site-footer shell">
-      <p>{t.footer}</p>
+      <p>© {new Date().getFullYear()} Xiaoyang Liu</p>
       <div>
-        <a href="https://github.com/muxmxu" rel="me">GitHub ↗</a>
-        <span>© {new Date().getFullYear()} Xiaoyang Liu</span>
+        {socialProfiles.map((profile) => <a href={profile.href} rel="me">{profile.label} <span aria-hidden="true">↗</span></a>)}
+        <a href={localePath(locale, '/publications/')}>{t.nav.publications}</a>
+        <a href={localePath(locale, '/cv/')}>{t.nav.cv}</a>
       </div>
     </footer>
   </body>
