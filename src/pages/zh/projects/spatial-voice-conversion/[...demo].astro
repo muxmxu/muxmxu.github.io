@@ -1,4 +1,9 @@
 ---
 import SpatialVoiceConversionDemoPage from '../../../../components/SpatialVoiceConversionDemoPage.astro';
+
+export function getStaticPaths() {
+  if (import.meta.env.SVC_DEMO_ENABLED === 'false') return [];
+  return [{ params: { demo: 'demo' } }];
+}
 ---
 <SpatialVoiceConversionDemoPage locale="zh" />

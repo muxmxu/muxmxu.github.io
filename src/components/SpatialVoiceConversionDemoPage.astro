@@ -5,6 +5,7 @@ import { localePath, type Locale } from '../data/site';
 
 interface Props { locale: Locale; }
 const { locale } = Astro.props;
+const demoEnabled = import.meta.env.SVC_DEMO_ENABLED !== 'false';
 
 const pageCopy = {
   en: {
@@ -12,32 +13,51 @@ const pageCopy = {
     title: 'Spatial Voice Conversion',
     introduction: 'Interactive listening samples for the spatial voice conversion research project.',
     back: 'Back to project',
+    notFoundTitle: 'Signal not found.',
+    notFoundText: 'The requested demonstration is outside this archive.',
+    home: 'Return home',
   },
   ja: {
     eyebrow: 'プロジェクトデモ',
     title: 'Spatial Voice Conversion',
     introduction: '空間Voice Conversion研究プロジェクトの試聴サンプルです。',
     back: 'プロジェクトに戻る',
+    notFoundTitle: 'ページが見つかりません。',
+    notFoundText: '指定されたデモはこのアーカイブにありません。',
+    home: 'ホームへ戻る',
   },
   zh: {
     eyebrow: '课题演示',
     title: 'Spatial Voice Conversion',
     introduction: 'Spatial Voice Conversion 研究课题的交互式试听样例。',
     back: '返回课题主页',
+    notFoundTitle: '页面未找到。',
+    notFoundText: '请求的演示不在当前归档中。',
+    home: '返回首页',
   },
 } as const;
 
 const page = pageCopy[locale];
+if (!demoEnabled) Astro.response.status = 404;
 ---
 
-<BaseLayout locale={locale} title={`${page.title} — Demonstration`} description={page.introduction}>
-  <article class="svc-demo-page shell">
-    <a class="back-link" href={localePath(locale, '/projects/spatial-voice-conversion/')}>← {page.back}</a>
-    <header class="svc-demo-page__header">
-      <p class="eyebrow"><span></span>{page.eyebrow}</p>
-      <h1>{page.title}</h1>
-      <p>{page.introduction}</p>
-    </header>
-    <SpatialVoiceConversionDemo locale={locale} />
-  </article>
+<BaseLayout locale={locale} title={demoEnabled ? `${page.title} — Demonstration` : page.notFoundTitle} description={demoEnabled ? page.introduction : page.notFoundText} alternateLocales={demoEnabled}>
+  {demoEnabled ? (
+    <article class="svc-demo-page shell">
+      <a class="back-link" href={localePath(locale, '/projects/spatial-voice-conversion/')}>← {page.back}</a>
+      <header class="svc-demo-page__header">
+        <p class="eyebrow"><span></span>{page.eyebrow}</p>
+        <h1>{page.title}</h1>
+        <p>{page.introduction}</p>
+      </header>
+      <SpatialVoiceConversionDemo locale={locale} />
+    </article>
+  ) : (
+    <section class="not-found shell">
+      <p class="eyebrow"><span></span>Error 404</p>
+      <h1>{page.notFoundTitle}</h1>
+      <p>{page.notFoundText}</p>
+      <a class="button button--primary" href={localePath(locale, '/')}>{page.home} <span>→</span></a>
+    </section>
+  )}
 </BaseLayout>
