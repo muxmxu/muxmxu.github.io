@@ -1,0 +1,91 @@
+---
+import { spatialVoiceConversionOutputs } from '../data/spatialVoiceConversion';
+import { type Locale } from '../data/site';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+
+const copyByLocale = {
+  en: {
+    eyebrow: 'Research output',
+    title: 'Publications & presentations',
+    introduction: 'Project-specific research outputs will be collected here as the study develops.',
+    publication: 'Publications',
+    presentation: 'Presentations',
+    emptyPublication: 'No publications listed yet.',
+    emptyPresentation: 'No presentations listed yet.',
+  },
+  ja: {
+    eyebrow: '研究成果',
+    title: '論文・学会発表',
+    introduction: '研究の進展に合わせて、このプロジェクトに関する成果をここにまとめます。',
+    publication: '論文',
+    presentation: '学会発表',
+    emptyPublication: '現在、掲載されている論文はありません。',
+    emptyPresentation: '現在、掲載されている学会発表はありません。',
+  },
+  zh: {
+    eyebrow: '研究成果',
+    title: '论文与学术报告',
+    introduction: '随着研究推进，这里会集中整理本课题相关的研究成果。',
+    publication: '论文',
+    presentation: '学术报告',
+    emptyPublication: '目前还没有收录论文。',
+    emptyPresentation: '目前还没有收录学术报告。',
+  },
+} as const;
+
+const t = copyByLocale[locale];
+const publications = spatialVoiceConversionOutputs.filter((output) => output.kind === 'publication');
+const presentations = spatialVoiceConversionOutputs.filter((output) => output.kind === 'presentation');
+---
+
+<section class="svc-outputs" aria-labelledby="svc-outputs-title">
+  <div class="svc-section-heading">
+    <div>
+      <p class="eyebrow"><span></span>{t.eyebrow}</p>
+      <h2 id="svc-outputs-title">{t.title}</h2>
+    </div>
+    <p>{t.introduction}</p>
+  </div>
+
+  <div class="svc-output-grid">
+    <section class="svc-output-group" aria-labelledby="svc-publications-title">
+      <h3 id="svc-publications-title">{t.publication}</h3>
+      {publications.length ? (
+        <ol class="svc-output-list">
+          {publications.map((output) => (
+            <li>
+              <time datetime={String(output.year)}>{output.year}</time>
+              <div>
+                <h4>
+                  {output.url ? <a href={output.url}>{output.title}<span aria-hidden="true">↗</span></a> : output.title}
+                </h4>
+                <p>{output.venue}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      ) : <p class="svc-output-empty">{t.emptyPublication}</p>}
+    </section>
+
+    <section class="svc-output-group" aria-labelledby="svc-presentations-title">
+      <h3 id="svc-presentations-title">{t.presentation}</h3>
+      {presentations.length ? (
+        <ol class="svc-output-list">
+          {presentations.map((output) => (
+            <li>
+              <time datetime={String(output.year)}>{output.year}</time>
+              <div>
+                <h4>
+                  {output.url ? <a href={output.url}>{output.title}<span aria-hidden="true">↗</span></a> : output.title}
+                </h4>
+                <p>{output.venue}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+      ) : <p class="svc-output-empty">{t.emptyPresentation}</p>}
+    </section>
+  </div>
+</section>

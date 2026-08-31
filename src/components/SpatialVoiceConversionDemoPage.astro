@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SpatialVoiceConversionDemo from './SpatialVoiceConversionDemo.astro';
+import { localePath, type Locale } from '../data/site';
+
+interface Props { locale: Locale; }
+const { locale } = Astro.props;
+
+const pageCopy = {
+  en: {
+    eyebrow: 'Project demonstration',
+    title: 'Spatial Voice Conversion',
+    introduction: 'Interactive listening samples for the spatial voice conversion research project.',
+    back: 'Back to project',
+  },
+  ja: {
+    eyebrow: 'プロジェクトデモ',
+    title: 'Spatial Voice Conversion',
+    introduction: '空間Voice Conversion研究プロジェクトの試聴サンプルです。',
+    back: 'プロジェクトに戻る',
+  },
+  zh: {
+    eyebrow: '课题演示',
+    title: 'Spatial Voice Conversion',
+    introduction: 'Spatial Voice Conversion 研究课题的交互式试听样例。',
+    back: '返回课题主页',
+  },
+} as const;
+
+const page = pageCopy[locale];
+---
+
+<BaseLayout locale={locale} title={`${page.title} — Demonstration`} description={page.introduction}>
+  <article class="svc-demo-page shell">
+    <a class="back-link" href={localePath(locale, '/projects/spatial-voice-conversion/')}>← {page.back}</a>
+    <header class="svc-demo-page__header">
+      <p class="eyebrow"><span></span>{page.eyebrow}</p>
+      <h1>{page.title}</h1>
+      <p>{page.introduction}</p>
+    </header>
+    <SpatialVoiceConversionDemo locale={locale} />
+  </article>
+</BaseLayout>

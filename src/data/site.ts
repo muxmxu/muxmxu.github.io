@@ -66,8 +66,8 @@ export const copy = {
       statsLabel: 'Best lifts',
       lifts: [
         { label: 'Bench press', value: '105 kg' },
-        { label: 'Squat', value: '140 kg' },
-        { label: 'Deadlift', value: '145 kg' },
+        { label: 'Squat', value: '150 kg' },
+        { label: 'Deadlift', value: '147.5 kg' },
       ],
     },
     pages: {
@@ -143,8 +143,8 @@ export const copy = {
       statsLabel: 'ベスト記録',
       lifts: [
         { label: 'ベンチプレス', value: '105 kg' },
-        { label: 'スクワット', value: '140 kg' },
-        { label: 'デッドリフト', value: '145 kg' },
+        { label: 'スクワット', value: '150 kg' },
+        { label: 'デッドリフト', value: '147.5 kg' },
       ],
     },
     pages: {
@@ -203,8 +203,8 @@ export const copy = {
       statsLabel: '个人成绩',
       lifts: [
         { label: '卧推', value: '105 kg' },
-        { label: '深蹲', value: '140 kg' },
-        { label: '硬拉', value: '145 kg' },
+        { label: '深蹲', value: '150 kg' },
+        { label: '硬拉', value: '147.5 kg' },
       ],
     },
     pages: {
