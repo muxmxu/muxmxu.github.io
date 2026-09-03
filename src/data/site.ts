@@ -67,7 +67,7 @@ export const copy = {
       lifts: [
         { label: 'Bench press', value: '105 kg' },
         { label: 'Squat', value: '150 kg' },
-        { label: 'Deadlift', value: '147.5 kg' },
+        { label: 'Deadlift', value: '157.5 kg' },
       ],
     },
     pages: {
@@ -144,7 +144,7 @@ export const copy = {
       lifts: [
         { label: 'ベンチプレス', value: '105 kg' },
         { label: 'スクワット', value: '150 kg' },
-        { label: 'デッドリフト', value: '147.5 kg' },
+        { label: 'デッドリフト', value: '157.5 kg' },
       ],
     },
     pages: {
@@ -204,7 +204,7 @@ export const copy = {
       lifts: [
         { label: '卧推', value: '105 kg' },
         { label: '深蹲', value: '150 kg' },
-        { label: '硬拉', value: '147.5 kg' },
+        { label: '硬拉', value: '157.5 kg' },
       ],
     },
     pages: {
