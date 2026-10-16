@@ -65,9 +65,9 @@ export const copy = {
       text: 'Strength training has been a hobby of mine for more than four years.',
       statsLabel: 'Best lifts',
       lifts: [
-        { label: 'Bench press', value: '105 kg' },
-        { label: 'Squat', value: '150 kg' },
-        { label: 'Deadlift', value: '157.5 kg' },
+        { label: 'Bench press', value: '110 kg' },
+        { label: 'Squat', value: '165 kg' },
+        { label: 'Deadlift', value: '167.5 kg' },
       ],
     },
     pages: {
@@ -142,9 +142,9 @@ export const copy = {
       text: '趣味として4年以上、筋力トレーニングを続けています。',
       statsLabel: 'ベスト記録',
       lifts: [
-        { label: 'ベンチプレス', value: '105 kg' },
-        { label: 'スクワット', value: '150 kg' },
-        { label: 'デッドリフト', value: '157.5 kg' },
+        { label: 'ベンチプレス', value: '110 kg' },
+        { label: 'スクワット', value: '165 kg' },
+        { label: 'デッドリフト', value: '167.5 kg' },
       ],
     },
     pages: {
@@ -202,9 +202,9 @@ export const copy = {
       text: '业余进行力量训练已有 4 年多。',
       statsLabel: '个人成绩',
       lifts: [
-        { label: '卧推', value: '105 kg' },
-        { label: '深蹲', value: '150 kg' },
-        { label: '硬拉', value: '157.5 kg' },
+        { label: '卧推', value: '110 kg' },
+        { label: '深蹲', value: '165 kg' },
+        { label: '硬拉', value: '167.5 kg' },
       ],
     },
     pages: {

@@ -6,14 +6,27 @@ interface Props { locale: Locale; featuredOnly?: boolean; }
 const { locale, featuredOnly = false } = Astro.props;
 const t = copy[locale];
 const publications = featuredOnly ? allPublications.filter((item) => item.featured) : allPublications;
+const formatDate = (year: number, month?: number) => {
+  const date = month ? new Date(Date.UTC(year, month - 1, 1)) : undefined;
+  return {
+    datetime: month ? `${year}-${String(month).padStart(2, '0')}` : String(year),
+    label: date
+      ? new Intl.DateTimeFormat(locale, { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(date)
+      : String(year),
+  };
+};
+const publicationRows = publications.map((publication) => ({
+  publication,
+  date: formatDate(publication.year, publication.month),
+}));
 ---
 
 <ol class="publication-list">
-  {publications.map((publication) => (
+  {publicationRows.map(({ publication, date }) => (
     <li class="publication-item">
-      <div class="publication-item__year"><time datetime={String(publication.year)}>{publication.year}</time></div>
+      <div class="publication-item__year"><time datetime={date.datetime}>{date.label}</time></div>
       <div class="publication-item__content">
-        <div class="publication-item__type">{t.labels[publication.type]}</div>
+        {publication.type && <div class="publication-item__type">{t.labels[publication.type]}</div>}
         <h3>
           {publication.url ? (
             <a href={publication.url}>
@@ -23,7 +36,7 @@ const publications = featuredOnly ? allPublications.filter((item) => item.featur
           ) : publication.title}
         </h3>
         <p>{publication.authors.join(', ')}</p>
-        <p class="publication-item__venue">{publication.venue} · {publication.city}</p>
+        <p class="publication-item__venue">{publication.venue}{publication.city && ` · ${publication.city}`}</p>
         {publication.note && <p class="publication-item__note">{publication.note}</p>}
       </div>
     </li>

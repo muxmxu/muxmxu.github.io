@@ -38,6 +38,23 @@ const copyByLocale = {
 const t = copyByLocale[locale];
 const publications = spatialVoiceConversionOutputs.filter((output) => output.kind === 'publication');
 const presentations = spatialVoiceConversionOutputs.filter((output) => output.kind === 'presentation');
+const formatDate = (year: number, month?: number) => {
+  const date = month ? new Date(Date.UTC(year, month - 1, 1)) : undefined;
+  return {
+    datetime: month ? `${year}-${String(month).padStart(2, '0')}` : String(year),
+    label: date
+      ? new Intl.DateTimeFormat(locale, { month: 'short', year: 'numeric', timeZone: 'UTC' }).format(date)
+      : String(year),
+  };
+};
+const publicationRows = publications.map((output) => ({
+  output,
+  date: formatDate(output.year, output.month),
+}));
+const presentationRows = presentations.map((output) => ({
+  output,
+  date: formatDate(output.year, output.month),
+}));
 ---
 
 <section class="svc-outputs" aria-labelledby="svc-outputs-title">
@@ -54,13 +71,14 @@ const presentations = spatialVoiceConversionOutputs.filter((output) => output.ki
       <h3 id="svc-publications-title">{t.publication}</h3>
       {publications.length ? (
         <ol class="svc-output-list">
-          {publications.map((output) => (
+          {publicationRows.map(({ output, date }) => (
             <li>
-              <time datetime={String(output.year)}>{output.year}</time>
+              <time datetime={date.datetime}>{date.label}</time>
               <div>
                 <h4>
                   {output.url ? <a href={output.url}>{output.title}<span aria-hidden="true">↗</span></a> : output.title}
                 </h4>
+                {output.authors && <p>{output.authors.join(', ')}</p>}
                 <p>{output.venue}</p>
               </div>
             </li>
@@ -73,13 +91,14 @@ const presentations = spatialVoiceConversionOutputs.filter((output) => output.ki
       <h3 id="svc-presentations-title">{t.presentation}</h3>
       {presentations.length ? (
         <ol class="svc-output-list">
-          {presentations.map((output) => (
+          {presentationRows.map(({ output, date }) => (
             <li>
-              <time datetime={String(output.year)}>{output.year}</time>
+              <time datetime={date.datetime}>{date.label}</time>
               <div>
                 <h4>
                   {output.url ? <a href={output.url}>{output.title}<span aria-hidden="true">↗</span></a> : output.title}
                 </h4>
+                {output.authors && <p>{output.authors.join(', ')}</p>}
                 <p>{output.venue}</p>
               </div>
             </li>

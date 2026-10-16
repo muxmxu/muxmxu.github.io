@@ -1,16 +1,25 @@
 export interface Publication {
   year: number;
+  month?: number;
   authors: string[];
   title: string;
   venue: string;
-  city: string;
-  type: 'oral' | 'poster';
+  city?: string;
+  type?: 'oral' | 'poster';
   featured: boolean;
   note?: string;
   url?: string;
 }
 
 export const publications: Publication[] = [
+  {
+    year: 2026,
+    month: 9,
+    authors: ['Xiaoyang Liu', 'Shinnosuke Takamichi'],
+    title: 'Learning Blind Speech Separation and Spatial Propagation via Attention Based Graph Neural Network for Spatial Voice Conversion',
+    venue: '日本音響学会秋季研究発表会',
+    featured: true,
+  },
   {
     year: 2025,
     authors: ['Xiaoyang Liu', 'Yuma Kinoshita'],
