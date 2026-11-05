@@ -66,8 +66,8 @@ export const copy = {
       statsLabel: 'Best lifts',
       lifts: [
         { label: 'Bench press', value: '110 kg' },
-        { label: 'Squat', value: '165 kg' },
-        { label: 'Deadlift', value: '167.5 kg' },
+        { label: 'Squat', value: '172.5 kg' },
+        { label: 'Deadlift', value: '172.5 kg' },
       ],
     },
     pages: {
@@ -203,8 +203,8 @@ export const copy = {
       statsLabel: '个人成绩',
       lifts: [
         { label: '卧推', value: '110 kg' },
-        { label: '深蹲', value: '165 kg' },
-        { label: '硬拉', value: '167.5 kg' },
+        { label: '深蹲', value: '172.5 kg' },
+        { label: '硬拉', value: '172.5 kg' },
       ],
     },
     pages: {
